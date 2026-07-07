@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Shopping Cart</h1>
+    <a href="products.html">← Back to Products</a>
+</header>
+
+<div id="cartItems" class="products"></div>
+
+<h2 style="text-align:center; margin-top:20px;">
+    Total: ₹<span id="total">0</span>
+</h2>
+
+<div style="text-align:center; margin:20px;">
+
+<button onclick="clearCart()">
+Clear Cart
+</button>
+
+<button onclick="checkout()">
+Checkout
+</button>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function displayCart(){
+
+let cartItems = document.getElementById("cartItems");
+
+cartItems.innerHTML="";
+
+let total = 0;
+
+if(cart.length==0){
+
+cartItems.innerHTML="<h2>Your Cart is Empty</h2>";
+
+document.getElementById("total").innerHTML=0;
+
+return;
+
+}
+
+cart.forEach(function(item,index){
+
+total += item.price;
+
+cartItems.innerHTML += `
+
+<div class="card">
+
+<img src="${item.image}" height="180">
+
+<h3>${item.name}</h3>
+
+<h2>₹${item.price}</h2>
+
+<button onclick="removeItem(${index})">
+
+Remove
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total").innerHTML=total;
+
+}
+
+displayCart();
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+displayCart();
+
+}
+
+function clearCart(){
+
+localStorage.removeItem("cart");
+
+cart=[];
+
+displayCart();
+
+}
+
+function checkout(){
+
+if(cart.length==0){
+
+alert("Cart is Empty");
+
+return;
+
+}
+
+window.location.href="checkout.html";
+
+}
+
+</script>
+
+</body>
+</html>

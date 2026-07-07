@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <h1>Amazon Clone</h1>
+
+    <h2>Login</h2>
+
+    <form id="loginForm">
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter Email"
+            required
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter Password"
+            required
+        >
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <p>
+        Don't have an account?
+        <a href="signup.html">
+            Signup
+        </a>
+    </p>
+
+</div>
+
+<script>
+
+const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let email = document.getElementById("loginEmail").value;
+
+    let password = document.getElementById("loginPassword").value;
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let validUser = users.find(function(user){
+
+        return user.email === email && user.password === password;
+
+    });
+
+    if(validUser){
+
+        localStorage.setItem("currentUser", JSON.stringify(validUser));
+
+        alert("Login Successful");
+
+        window.location.href = "products.html";
+
+    }
+
+    else{
+
+        alert("Invalid Email or Password");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Checkout</h1>
+</header>
+
+<div class="login-container">
+
+<h2>Customer Details</h2>
+
+<input type="text" id="customerName" placeholder="Enter Your Name">
+
+<input type="text" id="address" placeholder="Enter Address">
+
+<select id="payment">
+
+<option>Cash On Delivery</option>
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+
+</select>
+
+<h2>Total Amount : ₹<span id="amount">0</span></h2>
+
+<button onclick="placeOrder()">
+
+Place Order
+
+</button>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let total = 0;
+
+cart.forEach(function(item){
+
+total += item.price;
+
+});
+
+document.getElementById("amount").innerHTML = total;
+
+function placeOrder(){
+
+let name = document.getElementById("customerName").value;
+
+let address = document.getElementById("address").value;
+
+let payment = document.getElementById("payment").value;
+
+if(name=="" || address==""){
+
+alert("Please fill all details");
+
+return;
+
+}
+
+alert(
+
+"Order Placed Successfully 🎉\n\n"+
+
+"Customer : "+name+
+
+"\nPayment : "+payment+
+
+"\nTotal : ₹"+total
+
+);
+
+localStorage.removeItem("cart");
+
+window.location.href="products.html";
+
+}
+
+</script>
+
+</body>
+</html>

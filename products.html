@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+
+<h1>Amazon Clone</h1>
+
+<nav>
+
+<a href="cart.html">🛒 Cart (<span id="count">0</span>)</a>
+
+</nav>
+
+</header>
+
+<div class="products" id="products"></div>
+
+<script>
+
+let productList=[
+
+{
+id:1,
+name:"Laptop",
+price:65000,
+image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
+},
+
+{
+id:2,
+name:"Smart Phone",
+price:25000,
+image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+},
+
+{
+id:3,
+name:"Smart Watch",
+price:5000,
+image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+},
+
+{
+id:4,
+name:"Headphones",
+price:2500,
+image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
+},
+
+{
+id:5,
+name:"Shoes",
+price:3000,
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+},
+
+{
+id:6,
+name:"Backpack",
+price:1500,
+image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+}
+
+];
+
+let products=document.getElementById("products");
+
+function displayProducts(){
+
+products.innerHTML="";
+
+productList.forEach(function(item){
+
+products.innerHTML+=`
+
+<div class="card">
+
+<img src="${item.image}" height="180">
+
+<h3>${item.name}</h3>
+
+<h2>₹${item.price}</h2>
+
+<button onclick="addToCart(${item.id})">
+
+Add To Cart
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+displayProducts();
+
+function addToCart(id){
+
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
+
+let product=productList.find(function(item){
+
+return item.id===id;
+
+});
+
+cart.push(product);
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+updateCount();
+
+alert("Product Added");
+
+}
+
+function updateCount(){
+
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
+
+document.getElementById("count").innerHTML=cart.length;
+
+}
+
+updateCount();
+
+</script>
+
+</body>
+</html>
